@@ -1,0 +1,646 @@
+Q)Maximum trapping water(An Efficient Solution is to prre-compute highest bar on left and right of every bar in O(n) time. Then use these pre-computed values to find the amount of water in every array element. Below is C++ implementation of this solution.)
+
+O(n)
+
+// Java program to find maximum amount of water that can
+// be trapped within given set of bars.
+ 
+class Test
+{
+    static int arr[] = new int[]{0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1};
+     
+    // Method for maximum amount of water
+    static int findWater(int n)
+    {
+        // left[i] contains height of tallest bar to the
+        // left of i'th bar including itself
+        int left[] = new int[n];
+      
+        // Right [i] contains height of tallest bar to
+        // the right of ith bar including itself
+        int right[] = new int[n];
+      
+        // Initialize result
+        int water = 0;
+      
+        // Fill left array
+        left[0] = arr[0];
+        for (int i = 1; i < n; i++)
+           left[i] = Math.max(left[i-1], arr[i]);
+      
+        // Fill right array
+        right[n-1] = arr[n-1];
+        for (int i = n-2; i >= 0; i--)
+           right[i] = Math.max(right[i+1], arr[i]);
+      
+        // Calculate the accumulated water element by element
+        // consider the amount of water on i'th bar, the
+        // amount of water accumulated on this particular
+        // bar will be equal to min(left[i], right[i]) - arr[i] .
+        for (int i = 0; i < n; i++)
+           water += Math.min(left[i],right[i]) - arr[i];
+      
+        return water;
+    }
+     
+    // Driver method to test the above function
+    public static void main(String[] args) 
+    {
+         
+        System.out.println("Maximum water that can be accumulated is " + 
+                                        findWater(arr.length));
+    }
+}
+
+
+
+
+
+
+//COIN DEMONISATION PROBLEM
+public class CoinDenomination {
+
+	public static void main(String[] args) {
+		double coins[] = {25.0,10.0,5.0,1.0};
+		double sum = 2342.5;
+		int count = 0;
+		
+		for(int i=0;i<coins.length;i++){
+			count = (int) (sum/coins[i]);
+			sum = sum - count * coins[i];
+			System.out.println("Denomination for " + coins[i] + " is:" + count);
+			count = 0;
+		}
+		
+		if(sum > 0){
+			System.out.println("The balance of " + sum + " have no coin denomination available");
+		}
+		
+
+	}
+
+}
+
+
+
+Q).Print contents of linked list
+/*
+  Print elements of a linked list on console 
+  head pointer input could be NULL as well for empty list
+  Node is defined as 
+  class Node {
+     int data;
+     Node next;
+  }
+*/
+
+// This is a "method-only" submission. 
+// You only need to complete this method. 
+    
+void Print(Node head) {
+  if(head == null){
+     return;
+  }
+    Node s1=head;
+   while(s1 != null){
+       
+       System.out.println(s1.data);
+      s1=s1.next;
+   } 
+  
+}
+
+2)Insert node at specified positions
+/*
+  Insert Node at a given position in a linked list 
+  head can be NULL 
+  First element in the linked list is at position 0
+  Node is defined as 
+  class Node {
+     int data;
+     Node next;
+  }
+*/
+    
+
+Node InsertNth(Node head, int data, int position) {
+   // This is a "method-only" submission. 
+    // You only need to complete this method. 
+    Node s1=new Node();
+    Node s2=new Node();
+    if(position == 0){
+        s1.data=data;
+        s1.next=head;
+        head=s1;
+    }
+    else{
+        Node itr=head;
+        for(int i=1;i<position;i++){
+           itr=itr.next; 
+        }
+       Node p=itr.next;
+        itr.next=s2;
+        s2.data=data;
+        s2.next=p;
+        
+    }
+    return head;
+    
+}
+
+3)Insert node at head of linked list
+Node Insert(Node head,int x) {
+     Node s1=new Node();
+    if(head == null){
+        s1.data=x;
+        head=s1;
+    }
+    else{
+        s1.next=head;
+        s1.data=x;
+        head=s1;
+    }
+    return head;
+}
+
+4)Delete a node
+Node Delete(Node head, int position) {
+  // Complete this method
+    Node s1=head;
+    if(position == 0){
+    head=head.next;
+    s1.next=null;
+    }
+else{
+    Node itr=head;
+    Node prev=itr;
+  for(int i=0;i<position;i++){
+      prev =itr;
+      itr=itr.next;
+    }
+    prev.next=itr.next;
+  }
+    
+    return head;
+    
+}
+
+5)Print in reverse
+void ReversePrint(Node head) {
+  // This is a "method-only" submission. 
+  // You only need to complete this method. 
+    Node prev=null;
+    Node i;
+    if( head == null){
+        return ;
+    }
+    else{
+    while(head != null){
+        i=prev;
+        prev=new Node();
+        prev.data=head.data;
+        prev.next=i;
+        head=head.next;
+    }
+    while (prev != null){
+        System.out.println(prev.data);
+        prev=prev.next;
+    }
+    
+        }
+}
+
+6)Preorder traversal without recursion
+void preOrder(Node root) {
+       Stack<Node> stack=new Stack<Node>();
+    stack.push(root);
+    while(!stack.isEmpty()){
+        Node x=stack.pop();
+        if(x.right != null){
+            stack.push(x.right);
+        }
+        if(x.left != null){
+           stack.push(x.left);
+        }
+        
+        System.out.print(x.data+" ");
+    }
+}
+
+
+8)Height of binary tree	
+   /*
+    
+    class Node 
+       int data;
+       Node left;
+       Node right;
+   */
+   int height(Node root)
+    {
+     if(root == null){
+         return -1;
+     }
+       else{
+       int a= height(root.left);
+       int b=height(root.right);
+           
+           if(a > b)
+              return a+1;
+           else
+               return b+1;
+       }
+       
+       
+    }
+9).star from right side
+
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int n = in.nextInt();
+        
+        for(int i=n-1;i>=0;i--){
+            for(int j=0;j<i;j++){
+            System.out.print(" ");
+            }
+            for(int a_j=n-1;a_j>=i;a_j--){
+                System.out.print("#");
+            }
+            System.out.println();
+        }
+        
+        
+    }
+}
+
+10).Diagonal difference
+
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int n = in.nextInt();
+        int a[][] = new int[n][n];
+        //To initialise array
+        for(int a_i=0; a_i < n; a_i++){
+            for(int a_j=0; a_j < n; a_j++){
+                a[a_i][a_j] = in.nextInt();
+            }
+        }
+        int sum=0;
+        for(int i=0,j=0;i<n &&j <n;i++,j++){
+            sum+=a[i][j];
+        }
+        int sum1=0;
+        for(int i=0,j=n-1;i<n && j>=0;i++,j--){
+            sum1+=a[i][j];
+        }
+        
+        int diff=sum1>sum?sum1-sum:sum-sum1;
+        System.out.println(diff);
+        
+    }
+}
+
+11).Binary search tree insertion
+
+ /* Node is defined as :
+ class Node 
+    int data;
+    Node left;
+    Node right;
+    
+    */
+
+static Node Insert(Node root,int value)
+    {
+    Node temp=new Node();
+    temp.data=value;
+    temp.left=null;
+    temp.right=null;
+    
+    if(root ==null){
+        return temp;
+    }
+    else{
+        if(root.data<value){
+        Node x=Insert(root.right,value);
+            root.right=x;
+        }
+        else if(root.data >value){
+         Node y=Insert(root.left,value);
+            root.left=y;
+        }
+    }
+       return root;
+    }
+
+
+12).Level order traversal
+   /* 
+    
+    class Node 
+       int data;
+       Node left;
+       Node right;
+   */
+   void LevelOrder(Node root)
+    {
+      Queue<Node> q=new LinkedList<Node>();
+       q.add(root);
+       while(!q.isEmpty()){
+           Node temp=q.remove();
+           if(temp.left !=null){
+               q.add(temp.left);
+           }
+           if(temp.right !=null){
+               q.add(temp.right);
+           }
+           System.out.print(temp.data+" ");
+           
+       }
+      
+    }
+13).Iterative based reversal of linked list
+
+/*
+  Reverse a linked list and return pointer to the head
+  The input list will have at least one element  
+  Node is defined as  
+  class Node {
+     int data;
+     Node next;
+  }
+*/
+    // This is a "method-only" submission. 
+    // You only need to complete this method. 
+Node Reverse(Node head) {
+Node prevnode=null;
+ Node nextnode=null;
+    while(head !=null){
+        nextnode=head.next;
+        head.next=prevnode;
+        prevnode=head;
+        head=nextnode;
+    }
+    return prevnode;
+}
+
+14).Top view of a tree
+
+/*
+   class Node 
+       int data;
+       Node left;
+       Node right;
+*/
+void top_view(Node root)
+{
+    Stack<Node> s=new Stack<Node>();
+    Node temp=new Node();
+    temp=root;
+    while(temp !=null){
+        s.push(temp);
+        temp=temp.left;
+    }
+    while(!s.isEmpty()){
+        Node x=s.pop();
+        System.out.print(x.data+" ");
+    }
+    root=root.right;
+    while(root !=null){
+        s.push(root);
+        System.out.print(root.data+" ");
+        root=root.right;
+    }
+     
+}
+
+15).Flipping a matrix
+
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+public class Solution {
+
+   public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int q = scanner.nextInt();
+        while (q-- > 0) {
+            int n = scanner.nextInt();
+            int[][] matrix = new int[2 * n][2 * n];
+            for (int i = 0; i < 2 * n; i++)
+                for (int j = 0; j < 2 * n; j++)
+                    matrix[i][j] = scanner.nextInt();
+            int sum =  getMax(n, matrix);
+            System.out.println(sum);
+        }
+    }
+
+    private static int getMax(int n, int[][] matrix) {
+        int max = 0;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                int ii = 2*n-1-i;
+                int jj = 2*n-1-j;
+                int best = matrix[i][j];
+                if (matrix[ii][j]>best) best = matrix[ii][j];
+                if (matrix[i][jj]>best) best = matrix[i][jj];
+                if (matrix[ii][jj]>best) best = matrix[ii][jj];
+                //System.out.print("best"+matrix[ii][j]+","+matrix[i][jj]+","+matrix[ii][jj]);
+                max += best;
+            }
+        }
+        return max;
+    }
+}
+
+16). Tree huffman coding
+
+/*  
+   class Node
+      public  int frequency; // the frequency of this tree
+       public  char data;
+       public  Node left, right;
+    
+*/ 
+
+void decode(String S ,Node root)
+    {
+    Node x=root;
+    StringBuilder str=new StringBuilder();
+        while(!S.isEmpty()){
+            if(S.charAt(0) == '1'){
+            x=x.right;
+           S=S.substring(1);
+        }
+            else{
+                x=x.left;
+                S=S.substring(1);
+            }
+      if(x.left == null && x.right == null){
+          str.append(x.data);
+          x=root;
+      } 
+        }
+        System.out.print(str.toString());
+    
+    }
+
+17).BST insertion
+ /* Node is defined as :
+ class Node 
+    int data;
+    Node left;
+    Node right;
+    
+    */
+
+static Node Insert(Node root,int value)
+    {
+    Node curr=new Node();
+    Node cur=new Node();
+    if(root == null){
+        curr.data=value;
+        curr.left=null;
+        curr.right=null;
+        return curr;
+    }
+    
+    else{
+    if(value > root.data){
+        cur=Insert(root.right,value);
+        root.right=cur;
+    }
+    if(value < root.data) {  
+        cur=Insert(root.left,value);
+        root.left=cur;
+    }
+       return root;
+        
+        }
+    }
+
+
+18).Insert a node at specified position of linked list
+/*
+  Insert Node at a given position in a linked list 
+  head can be NULL 
+  First element in the linked list is at position 0
+  Node is defined as 
+  class Node {
+     int data;
+     Node next;
+  }
+*/
+    
+
+Node InsertNth(Node head, int data, int position) {
+   // This is a "method-only" submission. 
+    // You only need to complete this method. 
+    Node s1=new Node();
+    Node s2=new Node();
+    if(position == 0){
+        s1.data=data;
+        s1.next=head;
+        head=s1;
+    }
+    else{
+        Node itr=head;
+        for(int i=1;i<position;i++){
+           itr=itr.next; 
+        }
+       Node p=itr.next;
+        itr.next=s2;
+        s2.data=data;
+        s2.next=p;
+        
+    }
+    return head;
+    
+}
+
+19).Insert a node at tail of linked list
+/*
+  Insert Node at the end of a linked list 
+  head pointer input could be NULL as well for empty list
+  Node is defined as 
+  class Node {
+     int data;
+     Node next;
+  }
+*/
+Node Insert(Node head,int data) {
+// This is a "method-only" submission. 
+// You only need to complete this method. 
+     Node s1=new Node();
+    Node s3=new Node();
+    if(head == null){
+       head=s1;
+        head.data=data;
+        
+    }
+    else{
+       Node s2=head; 
+       while(s2.next != null){
+           s2=s2.next;
+       } 
+       s2.next=s3;
+        s3.data=data;
+        
+    }
+    
+  return head;
+}
+
+20).Find "hackerrank" in a string
+
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int q = in.nextInt();
+        String ans="hackerrank";
+        String initial="";
+        for(int a0 = 0; a0 < q; a0++){
+            String s = in.next();
+            // your code goes here
+        int i=0;
+        int j=0;
+        String hackerString = "hackerrank";
+        while(i < s.length() && j < 10){
+            if(hackerString.charAt(j) == s.charAt(i++)){
+                j++;
+            }
+        }
+            if(j==10)
+                System.out.println("YES");
+            else
+                System.out.println("NO");
+        }
+    }
+}
+
